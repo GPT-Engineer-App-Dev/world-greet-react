@@ -13,7 +13,10 @@ export function SupabaseProvider({ children }) {
 
 const fromSupabase = async (query) => {
     const { data, error } = await query;
-    if (error) throw new Error(error.message);
+    if (error) {
+        console.error(error);
+        throw new Error(error.message);
+    }
     return data;
 };
 
@@ -24,15 +27,13 @@ table: events
     created_at: string
     name: string
     date: string
-    venue: number // foreign key to venues.id
+    venue: number
 
 table: comments
     id: number
     created_at: string
     content: string
-    event_id: number // foreign key to events.id
-    is_pinned: boolean
-    is_highlighted: boolean
+    event_id: number
 
 table: venues
     id: number
@@ -40,7 +41,7 @@ table: venues
     name: string
     capacity: number
     type: string
-
+	
 */
 
 // Hooks for events table
